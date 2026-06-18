@@ -90,6 +90,7 @@ BOARD_SUPER_PARTITION_SIZE                  := 18907922432
 BOARD_SUPER_PARTITION_GROUPS                := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE           := 18903728128
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext product vendor vendor_dlkm odm
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST += system_dlkm
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST += my_bigball my_carrier my_company my_engineering my_heytap my_manifest my_preload my_product my_region my_stock
 
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -152,6 +153,3 @@ TW_LOAD_VENDOR_MODULES 			:= "adsp_loader_dlkm.ko oplus_chg_v2.ko stm_st54se_gpi
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI      := true
 TW_NO_SCREEN_BLANK                      := true
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID  := true
-
-
-

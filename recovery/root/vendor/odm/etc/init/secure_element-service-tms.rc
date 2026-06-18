@@ -13,6 +13,5 @@
 
 service secure_element_hal_service.aidl /odm/bin/hw/android.hardware.secure_element-service-tms
     class hal
-    user root
+    user system
     group secure_element readproc
-    seclabel u:r:recovery:s0

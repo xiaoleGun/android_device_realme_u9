@@ -93,14 +93,14 @@ finish()
 	if [ "$SETPATCH" = "true" ]; then
 		is_system_mounted=$(getprop $SCRIPTNAME.system_mounted)
 		if [ "$is_system_mounted" = 1 ]; then
-			umount "$TEMPSYS"
+			umount -f -l "$TEMPSYS"
 			$setprop_bin $SCRIPTNAME.system_mounted 0
 			rmdir "$TEMPSYS"
 		fi
 		if [ "$MNT_VENDOR" = "true" ]; then
 			is_vendor_mounted=$(getprop $SCRIPTNAME.vendor_mounted)
 			if [ "$is_vendor_mounted" = 1 ]; then
-				umount "$TEMPVEN"
+				umount -f -l "$TEMPVEN"
 				$setprop_bin $SCRIPTNAME.vendor_mounted 0
 				rmdir "$TEMPVEN"
 			fi
@@ -109,6 +109,9 @@ finish()
 	setprop crypto.ready 1
 	log_print 1 "crypto.ready=$(getprop crypto.ready)"
 	log_print 1 "Script complete. Device ready for decryption."
+	umount -f -l /system
+	umount -f -l /vendor
+	umount -f -l /odm
 	exit 0
 }
 
@@ -117,14 +120,14 @@ finish_error()
 	if [ "$SETPATCH" = "true" ]; then
 		is_system_mounted=$(getprop $SCRIPTNAME.system_mounted)
 		if [ "$is_system_mounted" = 1 ]; then
-			umount "$TEMPSYS"
+			umount -f -l "$TEMPSYS"
 			$setprop_bin $SCRIPTNAME.system_mounted 0
 			rmdir "$TEMPSYS"
 		fi
 		if [ "$MNT_VENDOR" = "true" ]; then
 			is_vendor_mounted=$(getprop $SCRIPTNAME.vendor_mounted)
 			if [ "$is_vendor_mounted" = 1 ]; then
-				umount "$TEMPVEN"
+				umount -f -l "$TEMPVEN"
 				$setprop_bin $SCRIPTNAME.vendor_mounted 0
 				rmdir "$TEMPVEN"
 			fi

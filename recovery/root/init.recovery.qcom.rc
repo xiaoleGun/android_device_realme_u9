@@ -54,25 +54,63 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
+    # needed to make qseecomd work in recovery
+    chmod 0660 /dev/qseecom
+    chown system drmrpc /dev/qseecom
+    chmod 0664 /dev/ion
+    chown system system /dev/ion
 
 on property:twrp.modules.loaded=true
     # Mount firmware
     mkdir /firmware
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
+    symlink /firmware /vendor/firmware_mnt
     # Load ADSP firmware for PMIC
     wait /sys/kernel/boot_adsp/ssr
     write /sys/kernel/boot_adsp/ssr 1
+    write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
     start vendor.health-default
-    umount /firmware
+    start vendor.boot-qti
+    start vendor.oplus.vibrator
+
+on property:vendor.fstab_proceed=1
+    mkdir /firmware
+    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
+    symlink /firmware /vendor/firmware_mnt
+    start vendor.qseecomd
+    start vendor.gatekeeper_default
+    start vendor.keymint
+    start vendor.secretkeeper
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.vendor
 
+on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    install_keyring
+
 on property:hwservicemanager.ready=true
     setprop sys.boot_completed 1
 
+on property:servicemanager.ready=true
+    setprop sys.boot_completed 1
+
 on property:vendor.sys.listeners.registered=true
-    start vendor.ssgtzd
-    start vendor.keymint-strongbox
+    start vendor.qseecomd
+    start vendor.gatekeeper_default
+    start vendor.keymint
+    start vendor.secretkeeper
     start vendor.oplus.vibrator
+
+on property:twrp.all.users.decrypted=true
+    stop vendor.gatekeeper_default
+    stop vendor.keymint
+    stop vendor.secretkeeper
+    stop vendor.qseecomd
+
+on property:sys.usb.config=fastboot
+    stop vendor.gatekeeper_default
+    stop vendor.keymint
+    stop vendor.secretkeeper
+    stop vendor.qseecomd
+    umount /firmware

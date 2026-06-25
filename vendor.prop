@@ -1,0 +1,6 @@
+# Crypto
+vendor.keymint.retry_timer=5
+ro.crypto.metadata_init_delete_all_keys.enabled=true
+vendor.gatekeeper.is_security_level_spu=0
+vendor.gatekeeper.disable_spu=true
+remote_provisioning.strongbox.rkp_only=true

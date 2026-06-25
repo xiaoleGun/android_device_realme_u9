@@ -54,6 +54,7 @@ TARGET_BOOTLOADER_BOARD_NAME    := canoe
 
 # Crypto
 BOARD_USES_METADATA_PARTITION   := true
+TARGET_VENDOR_PROP              += $(DEVICE_PATH)/vendor.prop
 TW_INCLUDE_CRYPTO               := true
 TW_INCLUDE_OMAPI                := true
 

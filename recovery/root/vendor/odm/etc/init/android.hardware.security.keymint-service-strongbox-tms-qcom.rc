@@ -1,7 +1,11 @@
 #ifdef OPLUS_FEATURE_SECURITY_COMMON
 #Liuhuihui@@BSP.Security.Basic, 2025/04/03, mv strongbox hal from vendor to odm partition
-service vendor.keymint-strongbox /odm/bin/hw/android.hardware.security.keymint-service-strongbox-tms
+service vendor.keymint-strongbox /vendor/odm/bin/hw/android.hardware.security.keymint-service-strongbox-tms
     class early_hal
+    interface aidl android.hardware.security.keymint.IKeyMintDevice/strongbox
+    interface aidl android.hardware.security.keymint.IRemotelyProvisionedComponent/strongbox
+    interface aidl vendor.oplus.hardware.keymint.IKeymintExt/strongbox
+    seclabel u:r:recovery:s0
     user jc_strongbox
     group system radio drmrpc
     capabilities SYS_ADMIN SYS_NICE WAKE_ALARM

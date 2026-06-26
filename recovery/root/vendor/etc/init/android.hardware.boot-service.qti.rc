@@ -3,5 +3,7 @@
 
 service vendor.boot-qti /vendor/bin/hw/android.hardware.boot-service.qti
     class early_hal
+    interface aidl android.hardware.boot.IBootControl/default
+    seclabel u:r:recovery:s0
     user root
     group root

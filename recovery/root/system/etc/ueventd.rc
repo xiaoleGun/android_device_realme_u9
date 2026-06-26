@@ -10,7 +10,7 @@ import /odm/etc/ueventd.wifi.rc
 # Modify for: multi projects using different bdf, adding persist into firmware_directories
 # firmware_directories /etc/firmware/ /odm/firmware/ /vendor/firmware/ /firmware/image/
 # else /* OPLUS_FEATURE_WIFI_BDF */
-firmware_directories /etc/firmware/ /odm/firmware/ /data/vendor/firmware/update/ /vendor/firmware/ /firmware/image/ /vendor/firmware_mnt/image/qca6490/ /data/oplus/fw_update/ /mnt/vendor/persist/copy/ /mnt/vendor/persist/ /odm/etc/wifi/ /vendor/firmware_mnt/image/
+firmware_directories /etc/firmware/ /vendor/odm/firmware/ /odm/firmware/ /data/vendor/firmware/update/ /vendor/firmware/ /firmware/image/ /vendor/firmware_mnt/image/qca6490/ /data/oplus/fw_update/ /mnt/vendor/persist/copy/ /mnt/vendor/persist/ /odm/etc/wifi/ /vendor/firmware_mnt/image/
 # endif /* OPLUS_FEATURE_WIFI_BDF */
 
 uevent_socket_rcvbuf_size 16M

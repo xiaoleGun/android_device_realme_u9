@@ -11,7 +11,10 @@
 # copyright or trademark. Tsingteng must not be liable for any loss or damage
 # arising from its use.
 
-service secure_element_hal_service.aidl /odm/bin/hw/android.hardware.secure_element-service-tms
+service secure_element_hal_service.aidl /vendor/odm/bin/hw/android.hardware.secure_element-service-tms
     class hal
+    interface aidl android.hardware.secure_element.ISecureElement/eSE1
+    interface aidl vendor.tms.tmsese_aidl.ITmsEse/default
+    seclabel u:r:recovery:s0
     user system
     group secure_element readproc

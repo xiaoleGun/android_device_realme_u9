@@ -8,6 +8,8 @@ on init
 service vendor.qseecomd /vendor/bin/qseecomd
     socket notify-topology stream 660 system drmrpc
     class core
+    interface aidl vendor.qti.hardware.qseecom.IQSEECom/default
+    seclabel u:r:recovery:s0
     user root
     group root drmrpc
 

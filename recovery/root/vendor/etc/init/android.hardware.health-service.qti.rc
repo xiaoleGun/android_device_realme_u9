@@ -1,5 +1,7 @@
 service vendor.health-default /vendor/bin/hw/android.hardware.health-service.qti
     class hal
+    interface aidl android.hardware.health.IHealth/default
+    seclabel u:r:recovery:s0
     user system
     group system
     capabilities WAKE_ALARM BLOCK_SUSPEND

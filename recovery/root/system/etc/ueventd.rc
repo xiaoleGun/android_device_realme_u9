@@ -77,6 +77,10 @@ subsystem vfio
 /dev/graphics/*           0660   root       graphics
 /dev/input/*              0660   root       input
 /dev/v4l-touch*           0660   root       input
+/dev/hbp_core             0660   system     system
+/dev/hbp[0-9]*            0660   system     system
+/dev/tcm_hbp*             0660   system     system
+/dev/tp_misc*             0660   system     system
 /dev/snd/*                0660   system     audio
 /dev/bus/usb/*            0660   root       usb
 /dev/mtp_usb              0660   root       mtp

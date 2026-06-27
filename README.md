@@ -1,4 +1,4 @@
-# OnePlus 15R/ACE6T macan OrangeFox device tree
+# OnePlus 15R/ACE6T macan TWRP device tree
 
 ## Working
 
@@ -7,7 +7,6 @@
 - [X] Decryption
 - [?] Flashing
 - [?] Backup & Restore
-- [?] KernelSU, KernelSU Next & SukiSU Ultra Installer
 - [?] MTP/OTG Storage
 - [X] ADB/FastbootD
 - [?] Factory Reset
@@ -17,27 +16,28 @@
 - [ ] Vibration
 - [ ] Flashlight
 
-# How To Build
+## How To Build
 
-### Clone & Sync Source
+### Sync TWRP Source
 ```
-mkdir -p ~/android/OrangeFox_14
-cd ~/android/OrangeFox_14
-git clone https://gitlab.com/OrangeFox/sync.git
-cd sync
-./orangefox_sync.sh --branch 14.1 --path ~/android/fox_14.1
+mkdir -p ~/android/twrp
+cd ~/android/twrp
+repo init -u <twrp manifest url> -b <matching twrp branch>
+repo sync -c -j8
 ```
-### Clone Device-tree
+
+### Clone Device Tree
 ```
-cd ~/android/fox_14.1/device
+cd ~/android/twrp/device
 mkdir -p oneplus
 cd oneplus
-git clone https://github.com/koaaN/android_device_oneplus_macan-orangefox macan
+git clone <this repository> macan
 ```
-### BUILD!
+
+### Build
 ```
-cd ~/android/fox_14.1
+cd ~/android/twrp
 source build/envsetup.sh
-lunch twrp_macan-ap2a-eng
+lunch twrp_macan-eng
 mka adbd recoveryimage
 ```

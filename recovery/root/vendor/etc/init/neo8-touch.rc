@@ -1,0 +1,54 @@
+on early-init
+    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
+
+on boot
+    mkdir /data/vendor 0771 system system
+    mkdir /data/vendor/touchconfig 0777 system system
+    mkdir /data/vendor/touch 0771 system system
+    mkdir /data/vendor/touch/test 0771 system system
+    mkdir /data/vendor/touch/record 0771 system system
+    mkdir /data/vendor/touch/log 0771 system system
+    mkdir /data/vendor/touch/simulate 0771 system system
+    mkdir /data/vendor/touch/upload 0771 system system
+
+    chown system system /dev/hbp_core
+    chown system system /dev/hbp0
+    chown system system /dev/hbp1
+    chown system system /dev/tp_misc
+    chown system system /dev/tp_misc1
+    chown system system /dev/tcm_hbp0
+    chmod 0660 /dev/hbp_core
+    chmod 0660 /dev/hbp0
+    chmod 0660 /dev/hbp1
+    chmod 0660 /dev/tp_misc
+    chmod 0660 /dev/tp_misc1
+    chmod 0660 /dev/tcm_hbp0
+
+on property:twrp.modules.loaded=true
+    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
+    start touchDaemon
+    start vendor.touch-aidl-1
+
+service touchDaemon /system/bin/touchDaemon
+    class late_start
+    socket hidl2touchdaemon_client dgram 0660 root inet
+    socket hidl2touchdaemon_server dgram 0660 root inet
+    user root
+    group root inet misc sdcard_rw sdcard_r media_rw system radio input
+    seclabel u:r:recovery:s0
+
+service vendor.touch-aidl-1 /vendor/bin/hw/vendor-oplus-hardware-touch-V2-service
+    class hal
+    capabilities SYS_NICE
+    user root
+    group root system everybody gps radio inet sdcard_r sdcard_rw readproc
+    socket hidl2touchdaemon_client dgram 0660 root inet
+    socket hidl2touchdaemon_server dgram 0660 root inet
+    interface aidl vendor.oplus.hardware.touch.IOplusTouch/default
+    seclabel u:r:recovery:s0
+
+on property:vendor.oplus.touchDaemon.enable=0
+    stop touchDaemon
+
+on property:persist.vendor.oplus.touchDaemon.enable=0
+    stop touchDaemon

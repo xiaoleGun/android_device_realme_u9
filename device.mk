@@ -3,11 +3,6 @@
 # Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
-#
-# Copyright (C) 2024 The OrangeFox Recovery Project
-# SPDX-License-Identifier: GPL-3.0-or-later
-#
-
 LOCAL_PATH := device/oneplus/macan
 
 # Shipping API level
@@ -30,7 +25,3 @@ PRODUCT_EXTRA_RECOVERY_KEYS += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
-
-# some OrangeFox-specific settings
-$(call inherit-product, $(LOCAL_PATH)/fox_macan.mk)
-#

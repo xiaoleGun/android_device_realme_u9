@@ -4,6 +4,7 @@ service vendor.keymint-strongbox /vendor/odm/bin/hw/android.hardware.security.ke
     class early_hal
     interface aidl android.hardware.security.keymint.IKeyMintDevice/strongbox
     interface aidl android.hardware.security.keymint.IRemotelyProvisionedComponent/strongbox
+    interface aidl android.hardware.security.sharedsecret.ISharedSecret/strongbox
     interface aidl vendor.oplus.hardware.keymint.IKeymintExt/strongbox
     seclabel u:r:recovery:s0
     user jc_strongbox

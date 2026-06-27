@@ -81,6 +81,7 @@ on property:vendor.fstab_proceed=1
     start vendor.qseecomd
     start vendor.gatekeeper_default
     start vendor.keymint
+    start vendor.keymint-strongbox
     start vendor.secretkeeper
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
@@ -99,18 +100,21 @@ on property:vendor.sys.listeners.registered=true
     start vendor.qseecomd
     start vendor.gatekeeper_default
     start vendor.keymint
+    start vendor.keymint-strongbox
     start vendor.secretkeeper
     start vendor.oplus.vibrator
 
 on property:twrp.all.users.decrypted=true
     stop vendor.gatekeeper_default
     stop vendor.keymint
+    stop vendor.keymint-strongbox
     stop vendor.secretkeeper
     stop vendor.qseecomd
 
 on property:sys.usb.config=fastboot
     stop vendor.gatekeeper_default
     stop vendor.keymint
+    stop vendor.keymint-strongbox
     stop vendor.secretkeeper
     stop vendor.qseecomd
     umount /firmware
